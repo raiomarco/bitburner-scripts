@@ -44,6 +44,13 @@ export async function main(ns: NS) {
 		threads = Math.floor(threads * 0.8);
 	}
 
+	if (threads < 1) {
+		ns.tprint(
+			`Server '${host}' does not have enough RAM to run '${script}'. Aborting.`,
+		);
+		return;
+	}
+
 	ns.tprint(
 		`Launching script '${script}' on server '${host}' with ${threads} threads and the following arguments: ${script_args}`,
 	);
