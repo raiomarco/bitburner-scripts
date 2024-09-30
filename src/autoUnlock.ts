@@ -91,5 +91,5 @@ export async function main(ns: NS) {
 		// }
 	}
 
-	ns.exec("autoHack.js", "home");
+	// ns.exec("autoHack.js", "home");
 }

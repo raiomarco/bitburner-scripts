@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:latest
+FROM node:lts
 
 # Create a working directory inside the container
 WORKDIR /app
@@ -17,4 +17,4 @@ COPY . /app/
 EXPOSE 12525
 
 # Run filesync watch when the container starts
-CMD npm run watch
+CMD ["npm", "run", "watch"]

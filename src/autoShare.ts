@@ -5,7 +5,7 @@ import { listServers } from "./lib/listServers";
 export async function main(ns: NS) {
 	const args = ns.flags([["help", false]]);
 	if (args.help) {
-		ns.tprint("This script auto hacks every unlocked server.");
+		ns.tprint("This script auto shares every unlocked server.");
 		ns.tprint(`Usage: run ${ns.getScriptName()}`);
 		ns.tprint("Example:");
 		ns.tprint(`> run ${ns.getScriptName()}`);
@@ -14,23 +14,6 @@ export async function main(ns: NS) {
 
 	const servers = listServers(ns).filter((s) => ns.hasRootAccess(s));
 	// .concat(["home"]);
-	let recommend = "foodnstuff";
-	let recommendValue = 0;
-	for (const server of servers) {
-		const maxMoney = ns.getServerMaxMoney(server);
-		const shouldHack =
-			ns.getServerRequiredHackingLevel(server) < ns.getHackingLevel() / 2 &&
-			maxMoney > 0;
-
-		if (!shouldHack) continue;
-
-		if (maxMoney > recommendValue) {
-			recommend = server;
-			recommendValue = maxMoney;
-		}
-	}
-
-	ns.tprint(`Hacking: ${recommend}\n\n`);
 
 	for (const server of servers) {
 		// run deploy script
@@ -38,12 +21,12 @@ export async function main(ns: NS) {
 			ns.scriptKill("basicHack.js", server);
 			ns.scriptKill("share.js", server);
 			// run deploy.js summit-uni basicHack.js phantasy
-			ns.exec("deploy.js", "home", 1, server, "basicHack.js", recommend);
-			// ns.tprint(`[${server}] Executing hack!`);
+			ns.exec("deploy.js", "home", 1, server, "share.js");
+			// ns.tprint(`[${server}] Executing share!`);
 		}
 	}
 
 	ns.scriptKill("basicHack.js", "home");
 	ns.scriptKill("share.js", "home");
-	ns.exec("deploy.js", "home", 1, "--eco", "home", "basicHack.js", recommend);
+	ns.exec("deploy.js", "home", 1, "--eco", "home", "share.js");
 }

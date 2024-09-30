@@ -41,14 +41,13 @@ export async function main(ns: NS) {
 		const used = ns.getServerUsedRam(server);
 		const max = ns.getServerMaxRam(server);
 		const maxMoney = ns.getServerMaxMoney(server);
-		const shouldHack =
-			ns.getServerRequiredHackingLevel(server) < ns.getHackingLevel() / 2 &&
-			maxMoney > 0;
+		const reqHackLvl = ns.getServerRequiredHackingLevel(server);
+		const shouldHack = reqHackLvl < ns.getHackingLevel() / 2 && maxMoney > 0;
 
 		if (args.filter && !shouldHack) continue;
 
 		ns.tprint(
-			`${server} is opened. ${used} GB / ${max} GB (${((100 * used) / max).toFixed(2)}%) | MaxMoney: ${maxMoney} | hack?: ${shouldHack}`,
+			`${server} is opened. ${used} GB / ${max} GB (${((100 * used) / max).toFixed(2)}%) | MaxMoney: ${maxMoney} | HackLevel: ${reqHackLvl} | hack?: ${shouldHack}`,
 		);
 
 		if (maxMoney > recommendValue) {

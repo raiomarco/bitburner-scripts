@@ -11,5 +11,7 @@ export async function main(ns: NS) {
 	}
 
 	ns.exec("autoUnlock.js", "home");
-	ns.exec("deploy.js", "home", 1, "basicHack.js", "foodnstuff");
+	await ns.sleep(1000);
+	ns.exec("autoHack.js", "home");
+	ns.exec("purchaseServers.js", "home", 1);
 }
